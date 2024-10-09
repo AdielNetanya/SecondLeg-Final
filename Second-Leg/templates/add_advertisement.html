@@ -44,29 +44,29 @@ h1 {
 </style>
 
 <div class="container">
-    <h1>Add Recipe</h1>
+    <h1>Add Advertisement</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row mb-3">
-            <label class="col-lg-2 col-form-label">Recipe Name</label>
+            <label class="col-lg-2 col-form-label">Advertisement</label>
             <div class="col-lg-10">
                 {{ form.recipe }}
             </div>
         </div>
         <div class="row mb-3">
-            <label class="col-lg-2 col-form-label">Ingredients</label>
+            <label class="col-lg-2 col-form-label">Advertisement Name</label>
             <div class="col-lg-10">
                 {{ form.composites }}
             </div>
         </div>
         <div class="row mb-3">
-            <label class="col-lg-2 col-form-label">Instructions</label>
+            <label class="col-lg-2 col-form-label">Components</label>
             <div class="col-lg-10">
                 {{ form.instructions }}
             </div>
         </div>
         <div class="row mb-3">
-            <label class="col-lg-2 col-form-label">Recipe Image</label>
+            <label class="col-lg-2 col-form-label">Shoe Image</label>
             <div class="col-lg-10">
                 {{ form.image }}
             </div>
@@ -74,7 +74,7 @@ h1 {
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-10">
-                <button type="submit" class="btn btn-primary">Add Recipe</button>
+                <button type="submit" class="btn btn-primary">Add Advertisement</button>
             </div>
         </div>
     </form>
