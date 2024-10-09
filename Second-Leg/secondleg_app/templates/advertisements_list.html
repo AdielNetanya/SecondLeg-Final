@@ -3,7 +3,7 @@
 
 {% block content %}
 <style>
- .recipe-list-background {
+ .advertisement-list-background {
  background-image: url("{% static 'images/recipe_list.jpg' %}");
  background-size: cover;
  background-position: center;
@@ -54,11 +54,11 @@
  <a href="{% url 'add_recipe' %}" class="btn btn-primary add-button">Add Recipe</a>
  </div>
  {% else %}
- <p>Please <a href="{% url 'login' %}">log in</a> to add a recipe.</p>
+ <p>Please <a href="{% url 'login' %}">log in</a> to add a advertisement.</p>
  {% endif %}
 </div>
 
-<div class="recipe-list-background">
+<div class="advertisement-list-background">
  <div class="container">
  <h1 class="text-center mb-4">Recipe List</h1>
  <div class="row">
@@ -80,7 +80,7 @@
    {% if recipe.created_by == user %}
    <div class="card-footer text-center">
      <a href="{% url 'recipe_edit' recipe.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
-     <a href="{% url 'recipe_delete' recipe.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</a>
+     <a href="{% url 'recipe_delete' recipe.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this advertisement?')">Delete</a>
    </div>
    {% else %}
      <p>Not your recipe. Cannot edit or delete.</p>

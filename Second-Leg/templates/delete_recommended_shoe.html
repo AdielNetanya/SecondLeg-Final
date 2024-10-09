@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Delete Recommended Restaurant</h2>
-<p>Are you sure you want to delete the restaurant "{{ restaurant.name }}"?</p>
+<h2>Delete Recommended Shoe</h2>
+<p>Are you sure you want to delete the shoe "{{ restaurant.name }}"?</p>
 <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Delete</button>
