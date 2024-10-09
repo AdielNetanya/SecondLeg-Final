@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Recipe - Second-Leg</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Delete Advertisement</h1>
+        <div class="alert alert-warning text-center">
+            <p>Are you sure you want to delete the advertisement "<strong>{{ advertisement.advertisement }}</strong>"?</p>
+        </div>
+        <form method="post" class="text-center">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="{% url 'recipe_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- recommended_shoe_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="section-title">Recommended Shoe</h2>
+<link rel="stylesheet" href="{% static 'recommended_shoe_list.css' %}">
+<div class="action-container">
+ {% if user.is_authenticated %}
+ <!-- Wrapped the button in a div with a class to allow for margin styling -->
+ <div class="add-shoe-button">
+     <a href="{% url 'add_shoe_restaurant' %}" class="btn btn-primary add-button">Add Recommended Shoe</a>
+ </div>
+ {% else %}
+ <p>Please <a href="{% url 'login' %}">log in</a> to add a recommended restaurant.</p>
+ {% endif %}
+</div>
+
+<!-- Updated the restaurant list to use the correct class names -->
+<div class="shoe-container">
+ {% for shoe in restaurants %}
+ <div class="shoe-item">
+     <div class="shoe-card">
+         {% if shoe.photo %}
+         <img src="{{ shoe.photo.url }}" alt="{{ shoe.name }}" class="shoe-photo">
+         {% endif %}
+         <h3 class="shoe-name">{{ shoe.name }}</h3>
+         <p class="shoe-description">{{ shoe.description }}</p>
+
+         {% if shoe.restaurant_url %}
+         <p>
+             <a href="{{ shoe.restaurant_url }}" target="_blank" class="shoe-link">Visit Brand Website</a>
+         </p>
+         {% endif %}
+
+         {% if shoe.created_by == user %}
+         <div class="shoe-actions">
+             <a href="{% url 'edit_recommended_restaurant' shoe.id %}" class="btn edit-link">Edit</a>
+             <a href="{% url 'delete_recommended_restaurant' shoe.id %}" class="btn delete-link" onclick="return confirm('Are you sure you want to delete this shoe?')">Delete</a>
+         </div>
+         {% endif %}
+     </div>
+ </div>
+ {% endfor %}
+</div>
+{% endblock %}
