@@ -1,4 +1,4 @@
-/* Add space after the "Add Recommended Restaurant" button */
+/* Add space after the "Add Recommended Shoe" button */
 body {
     background-image: url('images/shoe.jpg'); /* Replace with the correct path to your image */
     background-size: cover; /* This makes the image cover the entire background */
@@ -11,16 +11,16 @@ body {
     background-color: #000000;
      /* Adjusted for a more balanced look */
 }
-/* Container for the restaurant items */
+/* Container for the shoe items */
 .shoe-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 20px; /* Adjusted space between each restaurant item */
+    gap: 20px; /* Adjusted space between each shoe item */
     margin-bottom: 40px; /* Added bottom margin to the container itself */
 }
 
-/* Style for restaurant items */
+/* Style for shoe items */
 .shoe-item {
     width: 30%; /* Adjust the width as needed */
     box-sizing: border-box;
@@ -29,7 +29,7 @@ body {
     margin-bottom: 20px; /* Additional margin to ensure separation */
 }
 
-/* Style for restaurant cards */
+/* Style for shoe cards */
 .shoe-card {
     background-color: #000000; /* Black background for the card */
     border-radius: 12px;
@@ -49,7 +49,7 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Style for the restaurant photo */
+/* Style for the shoe photo */
 .shoe-photo {
     width: 100%;
     height: 200px;
@@ -58,7 +58,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* Style for the restaurant name */
+/* Style for the shoe name */
 .shoe-name {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
@@ -67,14 +67,14 @@ body {
     color: #ffffff; /* White text for readability */
 }
 
-/* Style for the restaurant description */
+/* Style for the shoe description */
 .shoe-description {
     color: #cccccc; /* Lighter gray for description text */
     font-size: 1rem;
     margin-bottom: 15px;
 }
 
-/* Style for the restaurant link */
+/* Style for the shoe link */
 .shoe-link {
     color: #ffdd57; /* Accent color for links */
     text-decoration: none;
@@ -86,7 +86,7 @@ body {
     text-decoration: underline;
 }
 
-/* Style for restaurant actions */
+/* Style for shoe actions */
 .shoe-actions {
     margin-top: 10px;
     display: flex;

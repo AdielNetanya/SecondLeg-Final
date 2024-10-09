@@ -6,13 +6,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from secondleg_app.models import Advertisement
-from .models import RecommendedRestaurant
+from .models import RecommendedShoe
 
 
-class RecommendedRestaurantForm(forms.ModelForm):
+class RecommendedShoeForm(forms.ModelForm):
     class Meta:
-        model = RecommendedRestaurant
-        fields = ['name', 'photo', 'description', 'restaurant_url']
+        model = RecommendedShoe
+        fields = "__all__"
 
 
 class RecipeListHelper(FormHelper):
@@ -30,7 +30,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = '__all__'
 
 
 class advertisementForm(forms.ModelForm):

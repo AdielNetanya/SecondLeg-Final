@@ -16,12 +16,12 @@ class Advertisement(models.Model):
     image = models.ImageField(upload_to='recipes/', null=True, blank=True)  # Add this field
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements', default=1)
     
-class RecommendedRestaurant(models.Model):
+class RecommendedShoe(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='restaurant_photos/', blank=True, null=True)
     description = models.TextField()
-    restaurant_url=models.URLField(blank=True, null=True)
+    shoe_url=models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name
