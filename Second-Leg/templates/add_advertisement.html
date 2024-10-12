@@ -1,50 +1,98 @@
 {% extends 'base.html' %}
 
+{% load static %}  <!-- Load static files tag -->
+
 {% block content %}
-<div class="container">
-    <h1>Add Advertisement</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+    <link rel="stylesheet" href="{% static 'recommended_shoe_list.css' %}">
 
-        <!-- Brand -->
-        <div class="row mb-3">
-            <label class="col-lg-2 col-form-label">Brand</label>
-            <div class="col-lg-10">
-                {{ form.brand }}
-            </div>
-        </div>
+    <style>
+        /* Inline styles for better visibility */
+        body {
+            background-color: #f8f9fa; /* Light background for the whole page */
+            color: #333; /* Dark text color for readability */
+        }
 
-        <!-- Contact Name -->
-        <div class="row mb-3">
-            <label class="col-lg-2 col-form-label">Contact Name</label>
-            <div class="col-lg-10">
-                {{ form.contact_name }}
-            </div>
-        </div>
+        .container {
+            background-color: #ffffff; /* White background for the form container */
+            padding: 20px; /* Padding for the container */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            max-width: 600px; /* Limit the width of the form */
+            margin: auto; /* Center the form */
+        }
 
-        <!-- Description -->
-        <div class="row mb-3">
-            <label class="col-lg-2 col-form-label">Description</label>
-            <div class="col-lg-10">
-                {{ form.description }}
-            </div>
-        </div>
+        input, select, textarea {
+            border: 1px solid #ced4da; /* Light border for form fields */
+            border-radius: 4px; /* Rounded corners */
+            padding: 10px; /* Padding for better usability */
+            width: 100%; /* Full width for the inputs */
+            box-sizing: border-box; /* Ensure padding is included in total width */
+            margin-top: 5px; /* Space between label and input */
+        }
 
-        <!-- Image -->
-        <div class="row mb-3">
-            <label class="col-lg-2 col-form-label">Image</label>
-            <div class="col-lg-10">
-                {{ form.image }}
-            </div>
-        </div>
+        label {
+            color: #333; /* Dark label text */
+            font-weight: bold; /* Bold labels for emphasis */
+        }
 
-        <!-- Submit Button -->
-        <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-10">
-                <button type="submit" class="btn btn-primary">Add Advertisement</button>
+        .btn-primary {
+            background-color: #007bff; /* Primary button color */
+            border: none; /* Remove border */
+            padding: 10px 15px; /* Padding for button */
+            color: white; /* White text color */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+
+    <div class="container">
+        <h1>Add Advertisement</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Brand -->
+            <div class="row mb-3">
+                <label class="col-lg-2 col-form-label">Brand</label>
+                <div class="col-lg-10">
+                    {{ form.brand }}
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+
+            <!-- Contact Name -->
+            <div class="row mb-3">
+                <label class="col-lg-2 col-form-label">Contact Name</label>
+                <div class="col-lg-10">
+                    {{ form.contact_name }}
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="row mb-3">
+                <label class="col-lg-2 col-form-label">Description</label>
+                <div class="col-lg-10">
+                    {{ form.description }}
+                </div>
+            </div>
+
+            <!-- Image -->
+            <div class="row mb-3">
+                <label class="col-lg-2 col-form-label">Image</label>
+                <div class="col-lg-10">
+                    {{ form.image }}
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-10">
+                    <button type="submit" class="btn btn-primary">Add Advertisement</button>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

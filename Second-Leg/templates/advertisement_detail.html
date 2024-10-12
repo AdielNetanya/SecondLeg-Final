@@ -1,23 +1,50 @@
 {% extends 'base.html' %}
 
+{% load static %}  <!-- Make sure to load static files tag -->
+
 {% block content %}
-<div class="container">
-    <h1>{{ ad.brand }}</h1>
+    <style>
+        /* Styles for the background image */
+        body {
+            background-image: url("{% static 'images/background2.jpeg' %}"); /* Path to your background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the image */
+            color: #333; /* Dark text color for readability */
+            min-height: 100vh; /* Ensure body covers full height */
+        }
 
-    <!-- Contact Name -->
-    <p><strong>Contact Name:</strong> {{ ad.contact_name }}</p>
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for the container */
+            padding: 20px; /* Padding for the container */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            max-width: 600px; /* Limit the width of the content */
+            margin: auto; /* Center the container */
+        }
 
-    <!-- Description -->
-    <p><strong>Description:</strong> {{ ad.description }}</p>
+        .img-fluid {
+            max-width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
 
-    <!-- Image -->
-    {% if ad.image %}
-    <div>
-        <img src="{{ ad.image.url }}" alt="{{ ad.brand }}" class="img-fluid" />
+    <div class="container">
+        <h1>{{ ad.brand }}</h1>
+
+        <!-- Contact Name -->
+        <p><strong>Contact Name:</strong> {{ ad.contact_name }}</p>
+
+        <!-- Description -->
+        <p><strong>Description:</strong> {{ ad.description }}</p>
+
+        <!-- Image -->
+        {% if ad.image %}
+        <div>
+            <img src="{{ ad.image.url }}" alt="{{ ad.brand }}" class="img-fluid" />
+        </div>
+        {% endif %}
+
+        <!-- Created By -->
+        <p><strong>Created By:</strong> {{ ad.created_by }}</p>
     </div>
-    {% endif %}
-
-    <!-- Created By -->
-    <p><strong>Created By:</strong> {{ ad.created_by }}</p>
-</div>
 {% endblock %}

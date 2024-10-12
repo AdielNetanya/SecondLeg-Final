@@ -1,21 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Advertisement - Second-Leg</title>
+    <style>
+        /* Styles for the background image */
+        body {
+            background-image: url("{% static 'images/background2.jpeg' %}"); /* Path to your background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the image */
+            color: #333; /* Dark text color for readability */
+            min-height: 100vh; /* Ensure body covers full height */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for the container */
+            padding: 20px; /* Padding for the container */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            max-width: 600px; /* Limit the width of the content */
+            margin: auto; /* Center the container */
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Delete Advertisement</h1>
-        <div class="alert alert-warning text-center">
-            <p>Are you sure you want to delete the advertisement "<strong>{{ advertisement.advertisement }}</strong>"?</p>
-        </div>
-        <form method="post" class="text-center">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <a href="{% url 'advertisement_list' %}" class="btn btn-secondary">Cancel</a>
-        </form>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Delete Advertisement</h1>
+    <div class="alert alert-warning text-center">
+        <p>Are you sure you want to delete the advertisement "<strong>{{ advertisement.advertisement }}</strong>"?</p>
     </div>
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'advertisement_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 </body>
 </html>

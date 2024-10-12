@@ -10,13 +10,31 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <title>{% block title %} {% endblock %}</title>
-  </head>   
+
+    <style>
+      /* Adding background image */
+      body {
+        background-image: url("{% static 'images/background.png' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+
+      /* Optional: Add some padding to ensure readability */
+      .content-wrapper {
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
   <body>
-   
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"> 
-            <img src="{% static 'images/logo.png' %}" height="40px" width="40px" alt="Good Meal">
+          <a class="navbar-brand" href="#">
+            <img src="{% static 'images/logo.png' %}" height="40px" width="40px" alt="Second Leg">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,7 +60,7 @@
                 </li>
               {% endif %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'advertisement_list' %}">advertisement List</a>
+                <a class="nav-link" href="{% url 'advertisement_list' %}">Advertisement List</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'add_advertisement' %}">Add Advertisement</a>
@@ -51,7 +69,7 @@
                 <a class="nav-link" href="{% url 'recommended_shoe_list' %}">Recommended Shoes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'add_recommended_shoe' %}"> Add Recommended Shoes</a>
+                <a class="nav-link" href="{% url 'add_recommended_shoe' %}">Add Recommended Shoes</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'videos' %}">Videos Gallery</a>
@@ -61,7 +79,9 @@
         </div>
       </nav>
 
-      {% block content %}{% endblock %}
+      <div class="container content-wrapper">
+        {% block content %}{% endblock %}
+      </div>
 
       <!-- Optional JavaScript -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
