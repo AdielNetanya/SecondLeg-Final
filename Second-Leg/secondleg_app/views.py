@@ -1,13 +1,13 @@
-from .forms import RegisterForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.files.uploadedfile import UploadedFile
 
 from .forms import RecommendedShoeForm
 from .forms import RegisterForm
-from .forms import advertisementForm
+from .forms import AdvertisementForm
 from .models import Advertisement
 from .models import RecommendedShoe
 
@@ -79,45 +79,56 @@ def custom_logout(request):
 # views.py
 def advertisement_list(request):
     if request.method == "POST":
-        advertisements = advertisementForm(request.POST)
+        advertisements = AdvertisementForm(request.POST)
         if advertisements.is_valid():
             advertisements.save()
             messages.success(request, "New advertisement added!")
             return redirect('advertisement_list')
     else:
-        advertisements = advertisementForm()
+        advertisements = AdvertisementForm()
 
     all_advertisements = Advertisement.objects.all()
-    paginator = Paginator(all_advertisements, 6)  # Paginate by 5 recipes per page
+    paginator = Paginator(all_advertisements, 6)  # Paginate by 5 advertisements per page
     page = request.GET.get('pg')
     all_advertisements = paginator.get_page(page)
 
-    return render(request, 'advertisements_list.html', {'all_advertisements': all_advertisements, 'advertisements': advertisements})
-
-
-def advertisement_detail(request, recipe_id):
-    advertisement = get_object_or_404(Advertisement, id=recipe_id)
-    return render(request, 'advertisement_detail.html', {'advertisement': advertisement})
+    return render(request, 'advertisements_list.html',
+                  {'all_advertisements': all_advertisements, 'advertisements': advertisements})
 
 
 @login_required
-def advertisement_edit(request, recipe_id):
-    advertisementToEdit = get_object_or_404(Advertisement, id=recipe_id)
+def advertisement_detail(request, ad_id):
+    ad = get_object_or_404(Advertisement, id=ad_id)
+    return render(request, 'advertisement_detail.html', {'ad': ad})
 
-    if request.method == "POST":
-        advertisement = advertisementForm(request.POST, request.FILES, instance=advertisementToEdit)
-        if advertisement.is_valid():
-            advertisement.save()
-            return redirect('advertisement_list')
+
+@login_required
+def advertisement_edit(request, advertisement_id):
+    # Fetch the advertisement using the provided id
+    advertisement = get_object_or_404(Advertisement, pk=advertisement_id)
+
+    # Check if the user has permission to edit
+    if request.user != advertisement.created_by and not request.user.is_superuser:
+        return redirect('advertisement_detail', advertisement_id=advertisement.id)
+
+    if request.method == 'POST':
+        form = AdvertisementForm(request.POST, request.FILES, instance=advertisement)
+
+        if form.is_valid():
+            # Save the form (Django will handle the image replacement automatically)
+            form.save()
+
+            return redirect('advertisement_detail', advertisement_id=advertisement.id)
+
     else:
-        advertisement = advertisementForm(instance=advertisementToEdit)
+        form = AdvertisementForm(instance=advertisement)
 
-    return render(request, 'advertisement_edit.html', {'advertisement': advertisement, 'advertisementToEdit': advertisementToEdit})
-
+    return render(request, 'advertisement_edit.html', {'form': form, 'advertisement': advertisement})
 
 @login_required
-def advertisement_delete(request, recipe_id):
-    advertisement = get_object_or_404(Advertisement, id=recipe_id, created_by=request.user)  # Ensure the user is the creator
+def advertisement_delete(request, advertisement_id):
+    advertisement = get_object_or_404(Advertisement, id=advertisement_id,
+                                      created_by=request.user)  # Ensure the user is the creator
     if request.method == 'POST':
         advertisement.delete()
         return redirect('advertisement_list')  # Replace with your desired redirect URL
@@ -128,14 +139,15 @@ def advertisement_delete(request, recipe_id):
 @login_required
 def add_advertisement(request):
     if request.method == 'POST':
-        form = advertisementForm(request.POST, request.FILES)
+        form = AdvertisementForm(request.POST, request.FILES)
         if form.is_valid():
-            advertisement = form.save(commit=False)
-            advertisement.created_by = request.user
-            advertisement.save()
-            return redirect('advertisement_list')
+            ad = form.save(commit=False)
+            ad.created_by = request.user  # Set the user who created the ad
+            ad.save()
+            return redirect('advertisement_detail', ad_id=ad.id)  # Corrected line here
     else:
-        form = advertisementForm()
+        form = AdvertisementForm()
+
     return render(request, 'add_advertisement.html', {'form': form})
 
 
@@ -150,7 +162,6 @@ def recommended_shoe_list(request):
 
     shoes = RecommendedShoe.objects.all()  # Get all recommended shoes
     return render(request, 'recommended_shoe_list.html', {'recommendedShoe': recommendedShoe, 'shoes': shoes})
-
 
 @login_required
 def add_recommended_shoe(request):
@@ -168,15 +179,18 @@ def add_recommended_shoe(request):
 
 @login_required
 def edit_recommended_shoe(request, shoe_id):
-    shoeToEdit = get_object_or_404(RecommendedShoe, id=shoe_id, created_by=request.user)
+    shoe = get_object_or_404(RecommendedShoe, id=shoe_id)
+
     if request.method == 'POST':
-        recommendedShoe = RecommendedShoeForm(request.POST, request.FILES, instance=shoeToEdit)
-        if recommendedShoe.is_valid():
-            recommendedShoe.save()
-            return redirect('recommended_shoe_list')
+        form = RecommendedShoeForm(request.POST, request.FILES, instance=shoe)
+        if form.is_valid():
+            form.save()  # Save changes to the recommended shoe
+            return redirect('recommended_shoe_list')  # Redirect to the list or detail view
     else:
-        recommendedShoe = RecommendedShoeForm(instance=shoeToEdit)
-    return render(request, 'edit_recommended_shoe.html', {'recommendedShoe': recommendedShoe})
+        form = RecommendedShoeForm(instance=shoe)
+
+    return render(request, 'edit_recommended_shoe.html', {'form': form})
+
 
 
 @login_required
@@ -184,7 +198,6 @@ def delete_recommended_shoe(request, shoe_id):
     shoeToDelete = get_object_or_404(RecommendedShoe, id=shoe_id, created_by=request.user)
     if request.method == 'POST':
         shoeToDelete.delete()
-        messages.success(request, "Recommended shoeToDelete deleted successfully!")
         return redirect('recommended_shoe_list')
     return render(request, 'delete_recommended_shoe.html', {'shoeToDelete': shoeToDelete})
 

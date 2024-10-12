@@ -1,43 +1,74 @@
-{% extends "base.html" %}
-
-{% block title %}
-<title>Edit Advertisement - Second-Leg</title>
-{% endblock title %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-  <h1 class="text-center mb-4">Edit Recipe</h1>
-  
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    
-    <div class="mb-3">
-      {{ form.recipe.label_tag }}:
-      {{ form.recipe }}
+    <style>
+        /* Your existing styles */
+        .img-thumbnail {
+            max-width: 200px;
+            margin-bottom: 15px;
+        }
+    </style>
+
+    <div class="container">
+        <h2>Edit Advertisement</h2>
+
+        <!-- Form begins here -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Brand Field -->
+            <div class="row mb-3">
+                <label class="col-form-label">Brand</label>
+                <div class="col-lg-12">
+                    {{ form.brand }}
+                </div>
+            </div>
+
+            <!-- Contact Name Field -->
+            <div class="row mb-3">
+                <label class="col-form-label">Contact Name</label>
+                <div class="col-lg-12">
+                    {{ form.contact_name }}
+                </div>
+            </div>
+
+            <!-- Description Field -->
+            <div class="row mb-3">
+                <label class="col-form-label">Description</label>
+                <div class="col-lg-12">
+                    {{ form.description }}
+                </div>
+            </div>
+
+            <!-- Current Image Display -->
+            <div class="row mb-3">
+                <label class="col-form-label">Current Image</label>
+                <div class="col-lg-12">
+                    {% if advertisement.image %}
+                        <img src="{{ advertisement.image.url }}" alt="Current Advertisement Image"
+                             class="img-thumbnail">
+                    {% else %}
+                        <p>No image available.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Change Image Field -->
+            <div class="row mb-3">
+                <label class="col-form-label">Change Image</label>
+                <div class="col-lg-12">
+                    {{ form.image }}
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </form>
+        <!-- Form ends here -->
+
     </div>
-    
-    <div class="mb-3">
-      {{ form.composites.label_tag }}:
-      {{ form.composites }}
-    </div>
-    
-    <div class="mb-3">
-      {{ form.instructions.label_tag }}:
-      {{ form.instructions }}
-    </div>
-    
-    <div class="mb-3">
-      {{ form.image.label_tag }}:
-      {{ form.image }}
-      {% if recipe.image %}
-      <div class="mt-3">
-        <label>Current Image:</label><br>
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe }}" style="max-width: 200px; max-height: 200px;">
-      </div>
-      {% endif %}
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-  </form>
-</div>
-{% endblock content %}
+{% endblock %}

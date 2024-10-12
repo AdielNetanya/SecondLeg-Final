@@ -1,58 +1,23 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 <div class="container">
-    <div class="advertisement-detail">
-        <h2>{{ recipe.recipe }}</h2>
-        <div class="recipe-image">
-            {% if recipe.image %}
-            <img src="{{ recipe.image.url }}" alt="{{ recipe.recipe }}" style="max-width: 100%; height: auto;">
-            {% else %}
-            <p>No image available</p>
-            {% endif %}
-        </div>
-        <p><strong>Composites:</strong> {{ recipe.composites }}</p>
-        <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+    <h1>{{ ad.brand }}</h1>
+
+    <!-- Contact Name -->
+    <p><strong>Contact Name:</strong> {{ ad.contact_name }}</p>
+
+    <!-- Description -->
+    <p><strong>Description:</strong> {{ ad.description }}</p>
+
+    <!-- Image -->
+    {% if ad.image %}
+    <div>
+        <img src="{{ ad.image.url }}" alt="{{ ad.brand }}" class="img-fluid" />
     </div>
+    {% endif %}
+
+    <!-- Created By -->
+    <p><strong>Created By:</strong> {{ ad.created_by }}</p>
 </div>
-{% endblock content %}
-
-{% block extra_css %}
-<style>
-/* Ensures that the container stretches the full width */
-.container {
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-/* Recipe detail section aligned to the left */
-.advertisement-detail {
-    margin: 20px; /* Adjust spacing around the content */
-    text-align: left; /* Aligns text to the left */
-}
-
-.recipe-image {
-    margin-bottom: 20px; /* Space below the image */
-}
-
-.recipe-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    margin-top: 0;
-}
-
-p {
-    margin-bottom: 10px;
-}
-
-strong {
-    font-weight: bold;
-}
-</style>
-{% endblock extra_css %}
+{% endblock %}

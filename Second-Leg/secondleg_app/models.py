@@ -1,27 +1,36 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import TextField
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field
-from django.contrib.auth.models import User
+
 
 class StrippingTextField(TextField):
     def formfield(self, **kwargs):
         kwargs['strip'] = True
         return super(StrippingTextField, self).formfield(**kwargs)
-    
+
+
+def get_upload_path(instance, filename):
+    # This function constructs the upload path
+    return f'advertisements/{filename}'  # Ensure images are saved in advertisements/
+
+
 class Advertisement(models.Model):
-    advertisement = models.CharField(max_length=30, null=True, blank=True)
-    composites = models.TextField()  # Keep as TextField for now, consider JSONField later
-    instructions = models.TextField()
-    image = models.ImageField(upload_to='recipes/', null=True, blank=True)  # Add this field
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements', default=1)
-    
+    brand = models.CharField(max_length=255)
+    contact_name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='advertisements/', blank=True, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.brand
+
+
 class RecommendedShoe(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    photo = models.ImageField(upload_to='restaurant_photos/', blank=True, null=True)
+    photo = models.ImageField(upload_to='shoe_photos/', blank=True, null=True)
     description = models.TextField()
-    shoe_url=models.URLField(blank=True, null=True)
+    shoe_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name
